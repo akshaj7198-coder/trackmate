@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrackMate</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>TrackMate</h1>
+        <p>Plan your day. Build your skills. Get back on track.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>My Tasks</h2>
+
+            <form id="taskForm">
+                <input
+                    type="text"
+                    id="taskInput"
+                    placeholder="What do you need to do?"
+                    required
+                >
+
+                <input type="date" id="taskDeadline" required>
+
+                <button type="submit">Add Task</button>
+            </form>
+
+            <ul id="taskList"></ul>
+        </section>
+
+        <section>
+            <h2>Daily Progress</h2>
+            <p>Tasks completed: <span id="completedCount">0</span></p>
+        </section>
+
+        <section>
+            <h2>Recovery Mode</h2>
+            <p>Fell behind today? You can make a fresh plan.</p>
+            <button id="recoveryButton">Help Me Recover</button>
+            <p id="recoveryResult"></p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
