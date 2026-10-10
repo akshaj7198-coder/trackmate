@@ -1,51 +1,589 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrackMate</title>
+
+    <meta name="theme-color" content="#0b1020">
+    <meta name="description" content="TrackMate helps students balance academics, skill development, focus and rest.">
+
+    <title>TrackMate | Grow Consistently, Live Peacefully</title>
+
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
+    <div class="app-container">
 
-    <header>
-        <h1>TrackMate</h1>
-        <p>Plan your day. Build your skills. Get back on track.</p>
-    </header>
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">T</div>
+                <div>
+                    <h2>TrackMate</h2>
+                    <p>Grow without burnout.</p>
+                </div>
+            </div>
 
-    <main>
-        <section>
-            <h2>My Tasks</h2>
+            <nav class="navigation" aria-label="Main navigation">
+                <button class="nav-item active" data-section="dashboard">
+                    <span>⌂</span> Dashboard
+                </button>
 
-            <form id="taskForm">
-                <input
-                    type="text"
-                    id="taskInput"
-                    placeholder="What do you need to do?"
-                    required
-                >
+                <button class="nav-item" data-section="academics">
+                    <span>▣</span> Academics
+                </button>
 
-                <input type="date" id="taskDeadline" required>
+                <button class="nav-item" data-section="skills">
+                    <span>⌘</span> Skill Tracker
+                </button>
 
-                <button type="submit">Add Task</button>
-            </form>
+                <button class="nav-item" data-section="planner">
+                    <span>◷</span> Smart Planner
+                </button>
 
-            <ul id="taskList"></ul>
-        </section>
+                <button class="nav-item" data-section="focus">
+                    <span>◎</span> Focus Mode
+                </button>
 
-        <section>
-            <h2>Daily Progress</h2>
-            <p>Tasks completed: <span id="completedCount">0</span></p>
-        </section>
+                <button class="nav-item" data-section="analytics">
+                    <span>↗</span> Productivity
+                </button>
+            </nav>
 
-        <section>
-            <h2>Recovery Mode</h2>
-            <p>Fell behind today? You can make a fresh plan.</p>
-            <button id="recoveryButton">Help Me Recover</button>
-            <p id="recoveryResult"></p>
-        </section>
-    </main>
+            <div class="sidebar-footer">
+                <p>YOUR PERSONAL REMINDER</p>
+                <p class="sidebar-quote">
+                    Progress, not perfection.
+                </p>
+            </div>
+        </aside>
 
-    <script src="script.js"></script>
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">YOUR PERSONAL GROWTH SPACE</p>
+                    <h1 id="pageTitle">Dashboard</h1>
+                    <p id="pageSubtitle">
+                        Make progress without overwhelming yourself.
+                    </p>
+                </div>
+
+                <div class="today-display">
+                    <span>Today</span>
+                    <strong id="currentDate">--</strong>
+                </div>
+            </header>
+
+            <!-- DASHBOARD -->
+            <section class="app-section active" id="dashboard">
+                <div class="welcome-card">
+                    <div>
+                        <p class="eyebrow">A NEW DAY, A FRESH START</p>
+                        <h2>Grow consistently.<br>Live peacefully.</h2>
+                        <p>
+                            Handle what matters today. Keep growing at
+                            your own pace.
+                        </p>
+                        <button class="primary-button" data-go="planner">
+                            Plan my day →
+                        </button>
+                    </div>
+                    <div class="welcome-decoration" aria-hidden="true">
+                        ✦
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <span class="stat-icon">▣</span>
+                        <p>Pending academic tasks</p>
+                        <h3 id="pendingCount">0</h3>
+                        <span>Assignments, exams and more</span>
+                    </article>
+
+                    <article class="stat-card">
+                        <span class="stat-icon">⌘</span>
+                        <p>Skills being developed</p>
+                        <h3 id="skillCount">0</h3>
+                        <span>Your learning journey</span>
+                    </article>
+
+                    <article class="stat-card">
+                        <span class="stat-icon">◷</span>
+                        <p>Skill practice this week</p>
+                        <h3 id="weeklySkillTime">0 min</h3>
+                        <span>Small steps add up</span>
+                    </article>
+
+                    <article class="stat-card">
+                        <span class="stat-icon">✓</span>
+                        <p>Tasks completed</p>
+                        <h3 id="completedCount">0</h3>
+                        <span>Every step counts</span>
+                    </article>
+                </div>
+
+                <div class="content-grid">
+                    <article class="panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Upcoming deadlines</h2>
+                                <p>Keep fixed dates in sight.</p>
+                            </div>
+                            <button class="text-button" data-go="academics">
+                                View all →
+                            </button>
+                        </div>
+                        <div id="upcomingDeadlines" class="empty-state">
+                            <span>✦</span>
+                            <p>No deadlines added yet.</p>
+                            <small>Add an assignment or exam to get started.</small>
+                        </div>
+                    </article>
+
+                    <article class="panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Your skills</h2>
+                                <p>Keep learning at your own pace.</p>
+                            </div>
+                            <button class="text-button" data-go="skills">
+                                View all →
+                            </button>
+                        </div>
+                        <div id="dashboardSkills" class="empty-state">
+                            <span>⌘</span>
+                            <p>Your learning journey starts here.</p>
+                            <small>Add C, DSA or any skill you want to learn.</small>
+                        </div>
+                    </article>
+                </div>
+
+                <article class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Today's balance</h2>
+                            <p>A realistic plan is better than an overloaded one.</p>
+                        </div>
+                    </div>
+
+                    <div id="dashboardPlan" class="empty-state">
+                        <p>Your day doesn't need to be perfect.</p>
+                        <small>Tell TrackMate how much time you have.</small>
+                        <button class="primary-button" data-go="planner">
+                            Build today's plan
+                        </button>
+                    </div>
+                </article>
+            </section>
+
+            <!-- ACADEMICS -->
+            <section class="app-section" id="academics">
+                <div class="section-intro">
+                    <h2>Academic Tracker</h2>
+                    <p>
+                        Deadlines are fixed. Your plan can adapt around them.
+                    </p>
+                </div>
+
+                <div class="content-grid">
+                    <article class="panel">
+                        <h2>Add academic work</h2>
+                        <p class="panel-description">
+                            Record the actual due date and estimated effort.
+                        </p>
+
+                        <form id="academicForm" class="app-form">
+                            <label for="academicTitle">Task name</label>
+                            <input
+                                id="academicTitle"
+                                name="title"
+                                type="text"
+                                placeholder="e.g. Physics assignment"
+                                maxlength="120"
+                                required
+                            >
+
+                            <label for="academicType">Type</label>
+                            <select id="academicType" name="type" required>
+                                <option value="assignment">Assignment</option>
+                                <option value="exam">Exam</option>
+                                <option value="quiz">Quiz</option>
+                                <option value="project">Project</option>
+                                <option value="other">Other</option>
+                            </select>
+
+                            <label for="academicSubject">Subject</label>
+                            <input
+                                id="academicSubject"
+                                name="subject"
+                                type="text"
+                                placeholder="e.g. Mathematics"
+                                maxlength="100"
+                            >
+
+                            <label for="academicDeadline">Fixed deadline</label>
+                            <input
+                                id="academicDeadline"
+                                name="deadline"
+                                type="date"
+                                required
+                            >
+
+                            <label for="academicEffort">
+                                Estimated work needed (minutes)
+                            </label>
+                            <input
+                                id="academicEffort"
+                                name="effort"
+                                type="number"
+                                min="5"
+                                max="1440"
+                                value="60"
+                                required
+                            >
+
+                            <label for="academicPriority">Priority</label>
+                            <select id="academicPriority" name="priority">
+                                <option value="high">High</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+
+                            <button type="submit" class="primary-button">
+                                + Add academic task
+                            </button>
+                        </form>
+                    </article>
+
+                    <article class="panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Your academic schedule</h2>
+                                <p>Sorted by urgency and date.</p>
+                            </div>
+                        </div>
+                        <div id="academicTaskList" class="item-list">
+                            <p class="empty-message">
+                                Your academic tasks will appear here.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- SKILL TRACKER -->
+            <section class="app-section" id="skills">
+                <div class="section-intro">
+                    <h2>Skill Growth Tracker</h2>
+                    <p>
+                        Build valuable skills alongside your academics,
+                        one session at a time.
+                    </p>
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <p>Active skills</p>
+                        <h3 id="totalSkills">0</h3>
+                    </article>
+                    <article class="stat-card">
+                        <p>Total practice time</p>
+                        <h3 id="totalSkillTime">0 min</h3>
+                    </article>
+                    <article class="stat-card">
+                        <p>Topics completed</p>
+                        <h3 id="topicsCompleted">0</h3>
+                    </article>
+                    <article class="stat-card">
+                        <p>Sessions logged</p>
+                        <h3 id="totalSessions">0</h3>
+                    </article>
+                </div>
+
+                <div class="content-grid">
+                    <article class="panel">
+                        <h2>Add a skill</h2>
+                        <p class="panel-description">
+                            Choose what you want to improve.
+                        </p>
+
+                        <form id="skillForm" class="app-form">
+                            <label for="skillName">Skill name</label>
+                            <input
+                                id="skillName"
+                                name="name"
+                                type="text"
+                                placeholder="e.g. C Programming"
+                                maxlength="100"
+                                required
+                            >
+
+                            <label for="skillCategory">Category</label>
+                            <select id="skillCategory" name="category">
+                                <option value="Programming">Programming</option>
+                                <option value="DSA">DSA</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="Communication">Communication</option>
+                                <option value="Academic">Academic</option>
+                                <option value="Other">Other</option>
+                            </select>
+
+                            <label for="skillGoal">Weekly practice goal (minutes)</label>
+                            <input
+                                id="skillGoal"
+                                name="goal"
+                                type="number"
+                                min="10"
+                                max="10080"
+                                value="120"
+                                required
+                            >
+
+                            <label for="skillTarget">Target topics or milestones</label>
+                            <input
+                                id="skillTarget"
+                                name="skillTarget"
+                                type="text"
+                                placeholder="e.g. loops, arrays, pointers"
+                                maxlength="250"
+                            >
+
+                            <button type="submit" class="primary-button">
+                                + Add skill
+                            </button>
+                        </form>
+                    </article>
+
+                    <article class="panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Your learning journey</h2>
+                                <p>Progress is more than a streak.</p>
+                            </div>
+                        </div>
+                        <div id="skillList" class="item-list">
+                            <p class="empty-message">
+                                Add your first skill to begin tracking.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+
+                <article class="panel">
+                    <h2>Log a practice session</h2>
+                    <p class="panel-description">
+                        Record time spent and what you learned.
+                    </p>
+
+                    <form id="sessionForm" class="app-form">
+                        <label for="sessionSkill">Skill</label>
+                        <select id="sessionSkill" name="skillId" required>
+                            <option value="">Add a skill first</option>
+                        </select>
+
+                        <label for="sessionDate">Practice date</label>
+                        <input
+                            id="sessionDate"
+                            name="date"
+                            type="date"
+                            required
+                        >
+
+                        <label for="sessionDuration">Duration (minutes)</label>
+                        <input
+                            id="sessionDuration"
+                            name="duration"
+                            type="number"
+                            min="1"
+                            max="1440"
+                            value="25"
+                            required
+                        >
+
+                        <label for="sessionTopic">Topic or activity completed</label>
+                        <input
+                            id="sessionTopic"
+                            name="topic"
+                            type="text"
+                            placeholder="e.g. Solved 3 array problems"
+                            maxlength="250"
+                            required
+                        >
+
+                        <label for="sessionNotes">Notes (optional)</label>
+                        <textarea
+                            id="sessionNotes"
+                            name="notes"
+                            rows="3"
+                            maxlength="1000"
+                            placeholder="What did you understand or find difficult?"
+                        ></textarea>
+
+                        <button type="submit" class="primary-button">
+                            Save practice session
+                        </button>
+                    </form>
+
+                    <div id="sessionHistory" class="item-list">
+                        <p class="empty-message">
+                            Your practice history will appear here.
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- SMART PLANNER -->
+            <section class="app-section" id="planner">
+                <div class="section-intro">
+                    <h2>Adaptive Daily Planner</h2>
+                    <p>
+                        Your schedule should fit your life—not the other way around.
+                    </p>
+                </div>
+
+                <article class="panel">
+                    <form id="plannerForm" class="app-form">
+                        <label for="availableMinutes">
+                            How much time can you realistically spare today?
+                        </label>
+                        <select id="availableMinutes" name="availableMinutes">
+                            <option value="30">30 minutes</option>
+                            <option value="60">1 hour</option>
+                            <option value="120" selected>2 hours</option>
+                            <option value="180">3 hours</option>
+                            <option value="240">4 hours</option>
+                            <option value="360">6 hours</option>
+                        </select>
+
+                        <label for="energyLevel">How is your energy today?</label>
+                        <select id="energyLevel" name="energy">
+                            <option value="low">Low — keep it light</option>
+                            <option value="medium" selected>
+                                Moderate — a balanced day
+                            </option>
+                            <option value="high">High — I have more capacity</option>
+                        </select>
+
+                        <label for="plannerPreference">Today's preference</label>
+                        <select id="plannerPreference" name="preference">
+                            <option value="balanced">Balance everything</option>
+                            <option value="academics">Prioritize academics</option>
+                            <option value="skills">Include skill practice if possible</option>
+                        </select>
+
+                        <button type="submit" class="primary-button">
+                            Generate realistic plan
+                        </button>
+                    </form>
+                </article>
+
+                <article class="panel">
+                    <h2>Your suggested plan</h2>
+                    <div id="plannerResult" class="empty-state">
+                        <p>Your plan will appear here.</p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- FOCUS MODE -->
+            <section class="app-section" id="focus">
+                <div class="section-intro">
+                    <h2>Focus Mode</h2>
+                    <p>Work on one thing at a time. Breaks are productive too.</p>
+                </div>
+
+                <article class="panel focus-panel">
+                    <label for="focusTask">What are you focusing on?</label>
+                    <input
+                        id="focusTask"
+                        type="text"
+                        placeholder="e.g. Practice C loops"
+                        maxlength="120"
+                    >
+
+                    <label for="focusDuration">Session duration</label>
+                    <select id="focusDuration">
+                        <option value="15">15 minutes</option>
+                        <option value="25" selected>25 minutes</option>
+                        <option value="45">45 minutes</option>
+                        <option value="60">60 minutes</option>
+                    </select>
+
+                    <div id="focusTimer" class="focus-timer" role="timer"
+                         aria-live="off">
+                        25:00
+                    </div>
+
+                    <p id="focusStatus" role="status">
+                        Ready when you are.
+                    </p>
+
+                    <div class="button-row">
+                        <button id="startFocus" class="primary-button"
+                                type="button">Start</button>
+                        <button id="pauseFocus" class="secondary-button"
+                                type="button">Pause</button>
+                        <button id="resetFocus" class="secondary-button"
+                                type="button">Reset</button>
+                    </div>
+                </article>
+            </section>
+
+            <!-- PRODUCTIVITY ANALYTICS -->
+            <section class="app-section" id="analytics">
+                <div class="section-intro">
+                    <h2>Productivity Insights</h2>
+                    <p>
+                        Understand your habits without judging yourself.
+                    </p>
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <p>Tasks completed</p>
+                        <h3 id="analyticsCompleted">0</h3>
+                    </article>
+                    <article class="stat-card">
+                        <p>Tasks remaining</p>
+                        <h3 id="analyticsPending">0</h3>
+                    </article>
+                    <article class="stat-card">
+                        <p>Skill practice this week</p>
+                        <h3 id="analyticsSkillTime">0 min</h3>
+                    </article>
+                    <article class="stat-card">
+                        <p>Focus sessions completed</p>
+                        <h3 id="analyticsFocusSessions">0</h3>
+                    </article>
+                </div>
+
+                <article class="panel">
+                    <h2>Academic workload</h2>
+                    <div id="workloadAnalysis" class="empty-state">
+                        Add academic tasks to see your workload.
+                    </div>
+                </article>
+
+                <article class="panel">
+                    <h2>Skill development summary</h2>
+                    <div id="skillAnalysis" class="empty-state">
+                        Log practice sessions to see your learning trends.
+                    </div>
+                </article>
+            </section>
+
+            <footer class="app-footer">
+                <p>TrackMate · Grow consistently. Live peacefully.</p>
+                <p>Your progress matters more than perfection.</p>
+            </footer>
+
+        </main>
+    </div>
 </body>
 </html>
